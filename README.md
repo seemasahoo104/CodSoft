@@ -1,80 +1,104 @@
-# Sales Prediction Using Machine Learning
+# Credit Card Fraud Detection using Machine Learning
 
-## Project Overview
+## Overview
 
-This project focuses on predicting product sales based on advertising expenditure across multiple media channels, including TV, Radio, and Newspaper. Using Machine Learning techniques, the project analyzes advertising data to identify key factors influencing sales performance and builds a predictive model to estimate future sales.
+This project aims to detect fraudulent credit card transactions using Machine Learning techniques. Due to the highly imbalanced nature of the dataset, SMOTE (Synthetic Minority Oversampling Technique) is used to balance the classes and improve model performance.
+
+The project uses the Random Forest Classifier to classify transactions as either fraudulent or genuine and evaluates the model using various performance metrics.
 
 
-## Business Problem
+## Dataset Information
 
-Organizations invest significant amounts in advertising campaigns. Understanding which advertising channels contribute most to sales helps businesses optimize marketing budgets and improve return on investment (ROI).
+The dataset contains credit card transactions made by European cardholders.
 
+* Total Transactions: **284,807**
+* Genuine Transactions (Class = 0): **284,315**
+* Fraudulent Transactions (Class = 1): **492**
+
+### Features
+
+* Time
+* Amount
+* V1, V2, V3, ..., V28 (anonymized features obtained using PCA)
+* Class
+
+  * 0 → Genuine Transaction
+  * 1 → Fraudulent Transaction
 
 ## Technologies Used
 
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-Learn
-- Jupyter Notebook
-- VS Code
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+* Imbalanced-learn (SMOTE)
+* Pickle
 
+## Exploratory Data Analysis
 
-## Project Workflow
+The following visualizations were performed:
 
-### 1. Data Collection
-- Imported and loaded the advertising dataset.
+* Class Distribution Plot
+* Pie Chart of Fraud vs Genuine Transactions
+* Correlation Heatmap
+* Transaction Amount Distribution
+* Boxplots
+* Scatter Plots
+* Feature Importance Plot
 
-### 2. Data Exploration
-- Analyzed dataset structure and statistical summary.
-- Checked for missing values and data consistency.
+## Data Preprocessing
 
-### 3. Exploratory Data Analysis (EDA)
-- Correlation analysis
-- Heatmap visualization
-- Relationship analysis between advertising channels and sales
+* Loaded the dataset
+* Checked missing values
+* Feature scaling using StandardScaler
+* Train-Test Split
+* Handled class imbalance using SMOTE
 
-### 4. Machine Learning Model Development
-- Train-Test Split
-- Linear Regression Model
-- Model Training and Prediction
+## Machine Learning Model
 
-### 5. Model Evaluation
-- R² Score
-- Actual vs Predicted Sales Visualization
+### Random Forest Classifier
 
+```python
+RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
+```
 
-## Key Insights
+## Model Evaluation
 
-- TV advertising demonstrated the strongest positive correlation with sales.
-- Radio advertising showed moderate influence on sales performance.
-- Newspaper advertising had the least impact on sales.
-- Advertising expenditure can effectively be used to forecast future sales.
+The model performance was evaluated using:
 
+* Classification Report
+* Precision
+* Recall
+* F1-Score
+* Confusion Matrix
+
+## Model Saving
+
+The trained model was saved using Pickle:
+
+```python
+import pickle
+
+with open("fraud_model.pkl", "wb") as file:
+    pickle.dump(rf, file)
+```
 
 ## Results
 
-### Model Performance
+The Random Forest model successfully detected fraudulent transactions with high accuracy and achieved strong Precision, Recall, and F1-Score values.
 
-- Algorithm: Linear Regression
-- R² Score: **0.9059**
+## Sample Visualizations
 
-The model achieved approximately **90.59% prediction accuracy**, indicating strong predictive performance.
+* Correlation Heatmap
+* Confusion Matrix
+* Feature Importance Plot
+* Class Distribution Graph
 
-## Visualizations
+## Conclusion
 
-### Correlation Heatmap
-Analyzed relationships among advertising channels and sales.
-
-### Actual vs Predicted Sales
-Compared predicted sales values with actual sales values to evaluate model performance.
-
-## Future Enhancements
-
-- Implement advanced regression models.
-- Perform feature engineering.
-- Deploy the model as a web application.
-- Compare multiple machine learning algorithms.
-
+This project demonstrates how Machine Learning can be used to detect fraudulent credit card transactions effectively. Since the dataset is highly imbalanced, SMOTE was applied to balance the classes. A Random Forest Classifier was trained and evaluated using precision, recall, F1-score, and confusion matrix. The trained model was finally saved using Pickle for future use.
